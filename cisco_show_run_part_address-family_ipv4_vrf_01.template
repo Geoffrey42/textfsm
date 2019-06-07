@@ -1,0 +1,10 @@
+Value Filldown VRF (\S+)
+Value Track NEIGHBOR (\S+)
+Value AS (\d+)
+Value Key,List ROUTE_MAP (\S+)
+
+Start
+  ^ address-family ipv4 vrf ${VRF}
+  ^  neighbor ${NEIGHBOR} remote-as ${AS}
+  ^  neighbor ${NEIGHBOR} route-map ${ROUTE_MAP}
+  ^ exit-address-family -> Record
