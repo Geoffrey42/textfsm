@@ -1,0 +1,60 @@
+ address-family ipv4 vrf ARYA
+  no synchronization
+  neighbor 14.64.81.4 remote-as 4242
+  neighbor 14.64.81.4 inherit peer-session LTE-ASR
+  neighbor 14.64.81.4 description *** some desc ***
+  neighbor 14.64.81.4 activate
+  neighbor 14.64.81.4 inherit peer-policy LTE-ASR
+  neighbor 14.64.81.4 default-originate
+ exit-address-family
+ address-family ipv4 vrf THE_MONTAIN
+  import path selection all
+  import path limit 8
+  no synchronization
+  redistribute static route-map advertise-primary
+  redistribute connected route-map advertise-primary
+  neighbor 14.143.149.165 remote-as 4242
+  neighbor 14.143.149.165 description *** some desc ***
+  neighbor 14.143.149.165 ebgp-multihop 5
+  neighbor 14.143.149.165 update-source Vlan018
+  neighbor 14.143.149.165 timers 14 31
+  neighbor 14.143.149.165 activate
+  neighbor 14.143.149.165 send-community
+  neighbor 14.143.149.165 as-override
+  neighbor 14.143.149.165 advertisement-interval 5
+  neighbor 14.143.149.165 route-map RESILIENCE_VIPS_EXT in
+  neighbor 14.143.149.165 route-map DENY_ALL out
+  neighbor 14.143.149.166 remote-as 4242
+  neighbor 14.143.149.166 description *** some desc ***
+  neighbor 14.143.149.166 ebgp-multihop 5
+  neighbor 14.143.149.166 update-source Vlan018
+  neighbor 14.143.149.166 timers 14 31
+  neighbor 14.143.149.166 activate
+  neighbor 14.143.149.166 send-community
+  neighbor 14.143.149.166 as-override
+  neighbor 14.143.149.166 advertisement-interval 5
+  neighbor 14.143.149.166 route-map RESILIENCE_VIPS_EXT in
+  neighbor 14.143.149.166 route-map DENY_ALL out
+ exit-address-family
+ !
+ address-family ipv4 vrf SANSA
+  no synchronization
+  redistribute static route-map tag-ct-primary
+ exit-address-family
+ !
+ address-family ipv4 vrf ROBB
+  import path selection all
+  import path limit 8
+  no synchronization
+  redistribute static route-map tag-ct-primary
+  neighbor 174.44.1.44 remote-as 4242
+  neighbor 174.44.1.44 description *** some desc ***
+  neighbor 174.44.1.44 ebgp-multihop 14
+  neighbor 174.44.1.44 update-source Vlan077
+  neighbor 174.44.1.44 timers 14 31
+  neighbor 174.44.1.44 activate
+  neighbor 174.44.1.44 advertisement-interval 5
+  neighbor 174.44.1.44 route-map DEFAULT in
+  neighbor 174.44.1.44 route-map DENY_ALL out
+ exit-address-family
+ !
